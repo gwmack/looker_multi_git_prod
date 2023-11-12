@@ -48,7 +48,7 @@ def main():
 
 def get_base_url():
     """ Pull base url from looker.ini, remove port"""
-    base_url = "https://profservices.dev.looker.com:19999"
+    base_url = "https://2fb697f2-492b-4155-b413-654a85094d8b.looker.app/"
     return base_url
 
 

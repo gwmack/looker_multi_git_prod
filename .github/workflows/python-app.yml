@@ -1,39 +1,63 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python application
+
+name: Promote to Prod
+
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+    branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v2
       with:
         python-version: "3.10"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
+        pip install looker_sdk
+        pip install pandas
+        pip install argparse
+        pip install configparser
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
+    # Run Lookml Validation and check if dev branch has any errors. 
+    - name: Run LookML validator
+      env:
+        LOOKERSDK_API_VERSION: ${{ secrets.LOOKERSDK_API_VERSION }}
+        LOOKERSDK_BASE_URL: ${{ secrets.LOOKERSDK_BASE_URL }}
+        LOOKERSDK_CLIENT_ID: ${{ secrets.LOOKERSDK_CLIENT_ID }}
+        LOOKERSDK_CLIENT_SECRET: ${{ secrets.LOOKERSDK_CLIENT_SECRET }}
       run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
+        cd .github
+        echo ${{ github.head_ref }}
+        echo ${{ github.event.push.ref }}
+        python validate.py --project eric_the_redshift --dev True --branch ${{ github.head_ref }}
+    # Run Content Validation and check if new branch has more errors than prod
+    - name: Run Content validator
+      env:
+        LOOKERSDK_API_VERSION: ${{ secrets.LOOKERSDK_API_VERSION }}
+        LOOKERSDK_BASE_URL: ${{ secrets.LOOKERSDK_BASE_URL }}
+        LOOKERSDK_CLIENT_ID: ${{ secrets.LOOKERSDK_CLIENT_ID }}
+        LOOKERSDK_CLIENT_SECRET: ${{ secrets.LOOKERSDK_CLIENT_SECRET }}
       run: |
-        pytest
+        cd .github
+        # python content_validate.py --project looker_multi_git_dev --branch ${{ github.head_ref }}
+  # Run LookML Tests
+    - name: Run LookML Tests
+      env:
+        LOOKERSDK_API_VERSION: ${{ secrets.LOOKERSDK_API_VERSION }}
+        LOOKERSDK_BASE_URL: ${{ secrets.LOOKERSDK_BASE_URL }}
+        LOOKERSDK_CLIENT_ID: ${{ secrets.LOOKERSDK_CLIENT_ID }}
+        LOOKERSDK_CLIENT_SECRET: ${{ secrets.LOOKERSDK_CLIENT_SECRET }}
+      run: |
+        cd .github
+        python lookml_tests.py --project looker_multi_git_dev --branch ${{ github.head_ref }}

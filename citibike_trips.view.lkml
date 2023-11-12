@@ -27,6 +27,7 @@ view: citibike_trips {
     description: "End Station Latitude"
     sql: ${TABLE}.end_station_latitude ;;
   }
+
   dimension: end_station_longitude {
     type: number
     description: "End Station Longitude"

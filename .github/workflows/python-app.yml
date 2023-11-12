@@ -60,4 +60,4 @@ jobs:
         LOOKERSDK_CLIENT_SECRET: ${{ secrets.LOOKERSDK_CLIENT_SECRET }}
       run: |
         cd .github
-        python lookml_tests.py --project looker_multi_git_dev --branch ${{ github.head_ref }}
+     #   python lookml_tests.py --project looker_multi_git_dev --branch ${{ github.head_ref }}

@@ -6,6 +6,7 @@ view: citibike_trips {
     description: "Bike ID"
     value_format_name: id
     sql: ${TABLE}.bikeid ;;
+    primary_key: yes
   }
   dimension: birth_year {
     type: number

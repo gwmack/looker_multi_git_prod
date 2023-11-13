@@ -19,8 +19,6 @@ include: "/views/*.view.lkml"                # include all views in the views/ f
 #   }
 # }
 
-
-explore: citibike_trips {
-  label: "Citi Bike Adventours"
-
+explore: pageviews_2022 {
+  label: "Page Views"
 }

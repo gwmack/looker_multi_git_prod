@@ -50,7 +50,7 @@ def run_validator(sdk, project, branch):
     RETURNS:
     This returns a dataframe of the validation results.
     """
-    
+
     if project:
         project_name = project
         try:
@@ -91,8 +91,7 @@ def run_validator(sdk, project, branch):
 
         except error.SDKError:
             pass
-            print(project_name)
-            print("SDK ERROR, Please check project ID")
+            print(project_name + "SDK ERROR, Please check project ID")
     else:
         print("No project arg passed, please rerun script with -p PROJECTID")
 

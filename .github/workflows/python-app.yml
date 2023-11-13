@@ -40,7 +40,7 @@ jobs:
         cd .github
         echo ${{ github.head_ref }}
         echo ${{ github.event.push.ref }}
-        python validate.py  --project looker_multi_git_dev --dev True --branch ${{ github.head_ref }}
+        python validate.py  --project looker_multi_git_dev --dev True
     # Run Content Validation and check if new branch has more errors than prod
     - name: Run Content validator
       env:

@@ -1,6 +1,6 @@
 connection: "macknav_bq"
 
-include: "*.view.lkml"                # include all views in the views/ folder in this project
+include: "/views/*.view.lkml"                # include all views in the views/ folder in this project
 # include: "/**/*.view.lkml"                 # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
 
@@ -18,6 +18,7 @@ include: "*.view.lkml"                # include all views in the views/ folder i
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
+
 
 explore: citibike_trips {
   label: "Citi Bike Adventours"

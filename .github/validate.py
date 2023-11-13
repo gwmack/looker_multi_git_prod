@@ -50,8 +50,9 @@ def run_validator(sdk, project, branch):
     RETURNS:
     This returns a dataframe of the validation results.
     """
-print(project)
-print(project_name)
+    
+    print(project)
+    print(project_name)
     if project:
         project_name = project
         try:

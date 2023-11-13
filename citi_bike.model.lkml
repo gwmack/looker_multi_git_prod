@@ -22,4 +22,5 @@ include: "*.view.lkml"                # include all views in the views/ folder i
 explore: citibike_trips {}
 explore: citibike_stations {
   view_label: "Testing "
+  required_access_grants: []
 }

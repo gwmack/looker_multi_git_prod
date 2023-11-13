@@ -1,5 +1,5 @@
-- dashboard: citibike_top50_ride
-  title: top50rides
+- dashboard: citibike_top25_ride
+  title: top25rides
   model: citibike_segment
   explore: citibike_trips
   type: looker_column
@@ -8,7 +8,7 @@
     citibike_trips.start_station_name: "-NULL,-EMPTY"
     citibike_trips.end_station_name: "-NULL,-EMPTY"
   sorts: [citibike_trips.count desc]
-  limit: 50
+  limit: 25
   column_limit: 50
   x_axis_gridlines: false
   y_axis_gridlines: true

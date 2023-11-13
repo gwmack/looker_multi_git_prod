@@ -20,5 +20,6 @@ include: "*.view.lkml"                # include all views in the views/ folder i
 # }
 
 explore: citibike_trips {
-  label: "Citi Bike Journeys"
+  label: "Citi Bike Adventours"
+
 }
